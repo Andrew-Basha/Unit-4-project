@@ -30,75 +30,75 @@ public class Hand {
         bidList[handNum] = bid;
         String[] uniqueLabels = new String[4];
         int[] numUniqueLabels = new int[4];
-            uniqueLabels[0] = labelList[0];
-            numUniqueLabels[0]++;
-            for (int i = 1; i < labelList.length; i++) {
-                if (labelList[i].equals(uniqueLabels[0])) {
-                    numUniqueLabels[0]++;
+        uniqueLabels[0] = labelList[0];
+        numUniqueLabels[0]++;
+        for (int i = 1; i < labelList.length; i++) {
+            if (labelList[i].equals(uniqueLabels[0])) {
+                numUniqueLabels[0]++;
+            } else {
+                if (labelList[i].equals(uniqueLabels[1])) {
+                    numUniqueLabels[1]++;
+                } else if (uniqueLabels[1] == null) {
+                    numUniqueLabels[1]++;
+                    uniqueLabels[1] = labelList[i];
                 } else {
-                    if (labelList[i].equals(uniqueLabels[1])) {
-                        numUniqueLabels[1]++;
-                    } else if (uniqueLabels[1] == null) {
-                        numUniqueLabels[1]++;
-                        uniqueLabels[1] = labelList[i];
+                    if (labelList[i].equals(uniqueLabels[2])) {
+                        numUniqueLabels[2]++;
+                    } else if (uniqueLabels[2] == null) {
+                        numUniqueLabels[2]++;
+                        uniqueLabels[2] = labelList[i];
                     } else {
-                        if (labelList[i].equals(uniqueLabels[2])) {
-                            numUniqueLabels[2]++;
-                        } else if (uniqueLabels[2] == null) {
-                            numUniqueLabels[2]++;
-                            uniqueLabels[2] = labelList[i];
-                        } else {
-                            {
-                                if (labelList[i].equals(uniqueLabels[3])) {
-                                    numUniqueLabels[3]++;
-                                } else if (uniqueLabels[3] == null) {
-                                    numUniqueLabels[3]++;
-                                    uniqueLabels[3] = labelList[i];
-                                }
+                        {
+                            if (labelList[i].equals(uniqueLabels[3])) {
+                                numUniqueLabels[3]++;
+                            } else if (uniqueLabels[3] == null) {
+                                numUniqueLabels[3]++;
+                                uniqueLabels[3] = labelList[i];
                             }
                         }
                     }
                 }
             }
-            if (numUniqueLabels[0] == 5) {
-                strength += 960000000;
-                handType = 0;
-            } else if (numUniqueLabels[0] == 4 || numUniqueLabels[1] == 4) {
-                strength += 800000000;
-                handType = 1;
-            } else if (numUniqueLabels[0] == 3 || numUniqueLabels[1] == 3 || numUniqueLabels[2] == 3) {
-                if (numUniqueLabels[0] == 2 || numUniqueLabels[1] == 2) {
-                    strength += 640000000;
-                    handType = 2;
-                } else {
-                    strength += 480000000;
-                    handType = 3;
-                }
+        }
+        if (numUniqueLabels[0] == 5) {
+            strength += 960000000;
+            handType = 0;
+        } else if (numUniqueLabels[0] == 4 || numUniqueLabels[1] == 4) {
+            strength += 800000000;
+            handType = 1;
+        } else if (numUniqueLabels[0] == 3 || numUniqueLabels[1] == 3 || numUniqueLabels[2] == 3) {
+            if (numUniqueLabels[0] == 2 || numUniqueLabels[1] == 2) {
+                strength += 640000000;
+                handType = 2;
             } else {
-                int twoCounter = 0;
-                for (int i = 0; i < numUniqueLabels.length; i++) {
-                    if (numUniqueLabels[i] == 2) {
-                        twoCounter++;
-                    }
-                }
-                if (twoCounter == 2) {
-                    strength += 320000000;
-                    handType = 4;
-                } else if (twoCounter == 1) {
-                    strength += 160000000;
-                    handType = 5;
-                } else {
-                    handType = 6;
+                strength += 480000000;
+                handType = 3;
+            }
+        } else {
+            int twoCounter = 0;
+            for (int i = 0; i < numUniqueLabels.length; i++) {
+                if (numUniqueLabels[i] == 2) {
+                    twoCounter++;
                 }
             }
-            //arbitrary number
-            strength += convertToStrength(labelList[4]);
-            strength += (20 * convertToStrength(labelList[3]));
-            strength += (500 * convertToStrength(labelList[2]));
-            strength += (35000 * convertToStrength(labelList[1]));
-            strength += (1000000 * convertToStrength(labelList[0]));
-            strengthList[handNum] = strength;
-            handNum++;
+            if (twoCounter == 2) {
+                strength += 320000000;
+                handType = 4;
+            } else if (twoCounter == 1) {
+                strength += 160000000;
+                handType = 5;
+            } else {
+                handType = 6;
+            }
+        }
+        //arbitrary number
+        strength += convertToStrength(labelList[4]);
+        strength += (20 * convertToStrength(labelList[3]));
+        strength += (500 * convertToStrength(labelList[2]));
+        strength += (35000 * convertToStrength(labelList[1]));
+        strength += (1000000 * convertToStrength(labelList[0]));
+        strengthList[handNum] = strength;
+        handNum++;
     }
 
     public static void compareStrength(){
